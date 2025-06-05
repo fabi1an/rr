@@ -1,3 +1,4 @@
+import { ThemeToggle } from "~/theme/toggle";
 import type { Route } from "./+types/home";
 
 export function loader() {
@@ -14,6 +15,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       >
         React Router Docs
       </a>
+      <ThemeToggle/>
     </div>
   );
 }

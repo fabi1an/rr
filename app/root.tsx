@@ -5,15 +5,39 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  type ShouldRevalidateFunctionArgs,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 
+
+import { getTheme } from "./theme/route";
+import { useTheme } from "./theme";
+import { ThemeScript } from "./theme/script";
+
+export function shouldRevalidate({
+  formData,
+  defaultShouldRevalidate,
+}: ShouldRevalidateFunctionArgs) {
+  return formData?.get("theme") ? true : defaultShouldRevalidate;
+}
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const theme = await getTheme(request);
+
+  return {
+    theme,
+  };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const theme = useTheme();
+  
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme}>
       <head>
+        <ThemeScript  theme={theme} />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />

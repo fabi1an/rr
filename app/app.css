@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+html,
+body {
+  overflow-x: hidden;
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility !important;
+
+  @apply h-full bg-zinc-100 text-black dark:bg-zinc-950 dark:text-zinc-100;
+}
